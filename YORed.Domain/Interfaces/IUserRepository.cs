@@ -6,7 +6,7 @@ using YORed.Domain.Infrastructure;
 
 namespace YORed.Domain.Interfaces
 {
-    public interface IAccountRepository
+    public interface IUserRepository
     {
         OperationResult Create(User user);
         User Get(string id);
