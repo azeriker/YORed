@@ -15,7 +15,7 @@ namespace YORed.Domain.Services
 
         public User GetByLogin(string login)
         {
-            return _userRepository.Get(i => i.Login.Phone, login);
+            return _userRepository.Get(i => i.Login, login);
         }
 
         public OperationResult Login(string phone, string password)

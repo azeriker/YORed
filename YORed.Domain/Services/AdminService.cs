@@ -14,7 +14,7 @@ namespace YORed.Domain.Services
 
         public bool CreateUser(string phone, UserRole role)
         {
-            _userRepository.Create(new User { Login = new Login(phone), Password = "123", Role = role });
+            _userRepository.Create(new User { Login = phone, Password = "123", Role = role });
             return true;
         }
     }

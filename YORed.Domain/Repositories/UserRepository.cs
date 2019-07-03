@@ -39,7 +39,7 @@ namespace YORed.Domain.Repositories
 
         public bool Exists(string phone, string password)
         {
-            return _collection.Find(i => i.Login.Phone == phone && i.Password == password).FirstOrDefault() != null;
+            return _collection.Find(i => i.Login == phone && i.Password == password).FirstOrDefault() != null;
         }
 
         public void Update(User user)

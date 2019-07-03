@@ -34,7 +34,7 @@ namespace YORed.Controllers
 
             var user = _userService.GetByLogin(login);
 
-            if (login == user.Login.Phone && password == user.Password)
+            if (login == user.Login && password == user.Password)
             {
                 var claims = new List<Claim>
                 {
