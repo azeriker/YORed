@@ -44,6 +44,7 @@ namespace YORed.Controllers
         [HttpPost]
         public IActionResult UpdateReport(Report report)
         {
+            _reportService.AppointIfPossible(report, User.Identity.Name);
             _reportService.Update(report);
             return Report(report.Id);
         }

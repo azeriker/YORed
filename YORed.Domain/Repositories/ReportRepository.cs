@@ -42,7 +42,7 @@ namespace YORed.Domain.Repositories
         public void Update(Report report)
         {
             var update = Builders<Report>.Update
-                .Set(i => i.CommentsHistory, report.CommentsHistory)
+                .Set(i => i.Comment, report.Comment)
                 .Set(i => i.Description, report.Description)
                 .Set(i => i.Title, report.Title)
                 .Set(i => i.Status, report.Status);

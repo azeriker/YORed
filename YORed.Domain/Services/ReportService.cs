@@ -7,10 +7,14 @@ namespace YORed.Domain.Services
     public class ReportService : IReportService
     {
         private readonly IReportRepository _reportRepository;
+        private readonly IUserService _userService;
 
-        public ReportService(IReportRepository reportRepository)
+        public ReportService(
+            IReportRepository reportRepository,
+            IUserService userService)
         {
             _reportRepository = reportRepository;
+            _userService = userService;
         }
 
         public void Create(Report report)
@@ -41,6 +45,15 @@ namespace YORed.Domain.Services
         public void Update(Report report)
         {
             _reportRepository.Update(report);
+        }
+
+        public void AppointIfPossible(Report report, string login)
+        {
+            if (report.ModeratorId == null)
+            {
+                var user = _userService.GetByLogin(login);
+                report.ModeratorId = user.Id;
+            }
         }
     }
 }

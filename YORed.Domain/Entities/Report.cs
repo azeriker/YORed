@@ -10,11 +10,12 @@ namespace YORed.Domain.Entities
         public Report()
         {
             Photos = new List<string>();
-            CommentsHistory = new List<string>();
         }
 
         [BsonId]
         public string Id { get; set; }
+
+        public string Title { get; set; }
 
         public List<string> Photos { get; set; }
 
@@ -24,13 +25,11 @@ namespace YORed.Domain.Entities
 
         public string ModeratorId { get; set; }
 
-        public string Title { get; set; }
-
         public string Description { get; set; }
 
         public ReportStatus Status { get; set; }
 
-        public List<string> CommentsHistory { get; set; }
+        public string Comment { get; set; }
 
         public string Latitude { get; set; }
 

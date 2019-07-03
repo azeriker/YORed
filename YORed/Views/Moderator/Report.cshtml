@@ -3,5 +3,131 @@
     ViewData["Title"] = "Report";
 }
 
-<h2>Report</h2>
+<h2>Заявка</h2>
 
+<div class="jumbotron col-sm-6 col-sm-offset-2">
+    <form asp-controller="Parsers" asp-action="Update" method="post">
+        @Html.AntiForgeryToken()
+        <input name="Id" type="hidden" value="@ViewBag.Report.Id" />
+        <div class="row">
+            <label class="col-sm-6 text-center">Заголовок</label>
+            @if (ViewBag.Status != 0)
+            {
+                <input type="text" class="col-sm-6 form-control mb-3" name="Title" value="@ViewBag.Report.Title" disabled />
+            }
+            else
+            {
+                <input type="text" class="col-sm-6 form-control mb-3" name="Title" value="@ViewBag.Report.Title" />
+            }
+        </div>
+        <br />
+        <div class="row">
+            <label class="col-sm-6 text-center">Дата</label>
+            <input type="hidden" name="Date" value="@ViewBag.Report.Date" required>
+            <span class="col-sm-6 form-control mb-3">@ViewBag.Report.Date</span>
+        </div>
+        <br />
+
+        <label class="col-sm-6 text-center">Статус</label>
+        @if (ViewBag.Status != 0)
+        {
+            <select name="Status" size="4" value="@ViewBag.Report.Status" disabled>
+                <option value="0">New</option>
+                <option value="1">In progress</option>
+                <option value="2">Done</option>
+                <option value="3">Rejected</option>
+            </select>
+        }
+        else
+        {
+            <select name="Status" size="4" value="@ViewBag.Report.Status">
+                <option value="0">New</option>
+                <option value="1">In progress</option>
+                <option value="2">Done</option>
+                <option value="3">Rejected</option>
+            </select>
+        }
+        <br />
+        <div class="row">
+            <label class="col-sm-6 text-center">Описание</label>
+            @if (ViewBag.Status != 0)
+            {
+                <textarea class="col-sm-6 form-control mb-3" name="Description" placeholder="Description" value="@ViewBag.Report.Description" disabled></textarea>
+            }
+            else
+            {
+                <textarea class="col-sm-6 form-control mb-3" name="Description" placeholder="Description" value="@ViewBag.Report.Description"></textarea>
+            }
+        </div>
+        <br />
+
+        <div class="row">
+            <label class="col-sm-6 text-center">Комментарий</label>
+            @if (ViewBag.Status != 0)
+            {
+                <textarea class="col-sm-6 form-control mb-3" name="Comment" placeholder="Comment" value="@ViewBag.Report.Comment" disabled></textarea>
+            }
+            else
+            {
+                <textarea class="col-sm-6 form-control mb-3" name="Comment" placeholder="Comment" value="@ViewBag.Report.Comment"></textarea>
+            }
+        </div>
+        <br />
+
+        <div class="row">
+            <label class="col-sm-6 text-center">Широта</label>
+            <input type="hidden" name="Latitude" value="@ViewBag.Report.Latitude" required>
+            <span class="col-sm-6 form-control mb-3">@ViewBag.Report.Latitude</span>
+        </div>
+        <br />
+
+        <div class="row">
+            <label class="col-sm-6 text-center">Долгота</label>
+            <input type="hidden" name="Longitude" value="@ViewBag.Report.Longitude" required>
+            <span class="col-sm-6 form-control mb-3">@ViewBag.Report.Longitude</span>
+        </div>
+        <br />
+
+        @if (ViewBag.Status != 0)
+        {
+            <button type="submit" class="btn" id="Report-submit" disabled="">Обновить</button>
+        }
+        else
+        {
+            <button type="submit" class="btn" id="Report-submit">Обновить</button>
+        }
+    </form>
+</div>
+
+<script>
+        //function parserReportClicked(ip) {
+        //    window.$.ajax({
+        //        url: '/Parsers/Report?ip=' + ip,
+        //        dataType: 'json',
+        //        type: 'GET',
+        //        processData: false,
+        //        async: false,
+        //        headers: {
+        //            'Accept': 'application/json',
+        //            'Content-Type': 'application/json'
+        //        },
+        //        success: function (json) {
+        //            $('#proxyApiLogin').text(json["ProxyApiLogin"]);
+        //            $('#proxyApiPassword').text(json["ProxyApiPassword"]);
+        //            $('#parsingPeriodHours').text(json["ParsingPeriodHours"]);
+
+        //            $('#keywordQueueSize').text(json["KeywordDirectorReport"]["QueueSize"]);
+        //            $('#keywordPullerTimeout').text(json["KeywordDirectorReport"]["PullerTimeout"]);
+        //            $('#keywordPusherTimeout').text(json["KeywordDirectorReport"]["PusherTimeout"]);
+        //            $('#keywordParallelDegree').text(json["KeywordDirectorReport"]["ParallelDegree"]);
+        //            $('#keywordGreedLevel').text(json["KeywordDirectorReport"]["GreedLevel"]);
+
+        //            $('#keywordProductQueueSize').text(json["KeywordProductDirectorReport"]["QueueSize"]);
+        //            $('#keywordProductPullerTimeout').text(json["KeywordProductDirectorReport"]["PullerTimeout"]);
+        //            $('#keywordProductPusherTimeout').text(json["KeywordProductDirectorReport"]["PusherTimeout"]);
+        //            $('#keywordProductParallelDegree').text(json["KeywordProductDirectorReport"]["ParallelDegree"]);
+        //            $('#keywordProductGreedLevel').text(json["KeywordProductDirectorReport"]["GreedLevel"]);
+        //        }
+        //    });
+        //}
+</script>

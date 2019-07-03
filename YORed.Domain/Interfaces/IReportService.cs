@@ -17,5 +17,7 @@ namespace YORed.Domain.Interfaces
         List<Report> GetByUserId(string id);
 
         void Update(Report report);
+
+        void AppointIfPossible(Report report, string login);
     }
 }
