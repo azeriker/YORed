@@ -1,6 +1,21 @@
-﻿@{
+﻿@using YORed.Domain.Entities
+@{
     ViewData["Title"] = "AllReports";
 }
 
 <h2>AllReports</h2>
-
+@foreach (Report report in ViewBag.Reports)
+{
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="jumbotron">
+                <div class="row">
+                    <span style="font-weight: 900" class="col-sm-12">Title: @report.Title</span>
+                    <span class="col-sm-12">Date: @report.Date</span>
+                    <span class="col-sm-12">Status: @report.Status</span>
+                    <span class="col-sm-12">Last comment: @report.CommentsHistory.LastOrDefault() == null ? "" : @report.CommentsHistory.LastOrDefault()</span>
+                </div>
+            </div>
+        </div>
+    </div>
+}
