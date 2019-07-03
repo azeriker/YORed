@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using YORed.Domain.Entities;
+using YORed.Domain.Interfaces;
 
 namespace YORed.Controllers
 {
@@ -18,16 +19,13 @@ namespace YORed.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private List<User> people = new List<User>
-        {
-            new User { Login= "admin", Password="12345", Role = UserRole.Admin },
-            new User { Login="user", Password="55555", Role = UserRole.User }
-        };
+        private readonly IUserService _userService;
+        private readonly IUserRepository _userRepository;
 
-        [HttpGet]
-        public async Task<string> Test()
+        public AuthController(IUserService userService, IUserRepository userRepository)
         {
-            return "hello";
+            _userService = userService;
+            _userRepository = userRepository;
         }
 
         [HttpPost]
@@ -35,8 +33,13 @@ namespace YORed.Controllers
         {
             var username = Request.Query["login"];
             var password = Request.Query["password"];
-
-            var identity = GetIdentity(username, password);
+            if (!_userRepository.Exists(username, password))
+            {
+                Response.StatusCode = 400;
+                await Response.WriteAsync("Invalid username or password.");
+                return;
+            }
+            var identity = GetIdentity(username);
             if (identity == null)
             {
                 Response.StatusCode = 400;
@@ -57,17 +60,18 @@ namespace YORed.Controllers
 
             var response = new
             {
-                access_token = encodedJwt,
-                username = identity.Name
+                token = encodedJwt,
+                login = identity.Name
             };
             Response.ContentType = "application/json";
             await Response.WriteAsync(JsonConvert.SerializeObject(response, new JsonSerializerSettings { Formatting = Formatting.Indented }));
         }
 
-        private ClaimsIdentity GetIdentity(string username, string password)
+        private ClaimsIdentity GetIdentity(string username)
         {
-            User person = people.FirstOrDefault(x => x.Login == username && x.Password == password);
-            if (person != null)
+
+            User person = _userService.GetByLogin(username);
+            if (person != null && person.Role == UserRole.User)
             {
                 var claims = new List<Claim>
                 {
