@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using YORed.Domain.Entities;
-using YORed.Domain.Infrastructure;
+﻿using YORed.Domain.Entities;
 
 namespace YORed.Domain.Interfaces
 {
     public interface IUserRepository
     {
-        OperationResult Create(User user);
+        void Create(User user);
         User Get(string id);
-        OperationResult Update(User user);
+        void Update(User user);
     }
 }

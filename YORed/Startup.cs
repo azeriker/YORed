@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using YORed.Domain.Repositories;
 
 namespace YORed
 {
@@ -48,6 +49,7 @@ namespace YORed
                     };
                 });
 
+            services.AddTransient<MongoContext, MongoContext>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

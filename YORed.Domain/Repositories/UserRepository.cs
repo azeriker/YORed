@@ -1,4 +1,5 @@
 ﻿using System;
+using MongoDB.Driver;
 using YORed.Domain.Entities;
 using YORed.Domain.Infrastructure;
 using YORed.Domain.Interfaces;
@@ -7,20 +8,30 @@ namespace YORed.Domain.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private 
-        public OperationResult Create(User user)
+        private IMongoCollection<User> _collection;
+
+        public UserRepository(MongoContext context)
         {
-            throw new NotImplementedException();
+            _collection = context.Users;
+        }
+
+        public void Create(User user)
+        {
+            _collection.InsertOne(user);
         }
 
         public User Get(string id)
         {
-            throw new NotImplementedException();
+            return _collection.Find(i => i.Id == id).FirstOrDefault();
         }
 
-        public OperationResult Update(User user)
+        public void Update(User user)
         {
-            throw new NotImplementedException();
+            //var update = Builders<User>.Update
+            //    .Set(i => i.Password, customerModel.Balance)
+            //    .Set(i => i.OptionIds, customerModel.OptionIds)
+            //    .Set(i => i.PlanId, customerModel.PlanId);
+            //_collection.UpdateOne(user);
         }
     }
 }

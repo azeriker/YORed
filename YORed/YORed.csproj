@@ -13,4 +13,8 @@
     <ProjectReference Include="..\YORed.Domain\YORed.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\YORed.Domain\YORed.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
