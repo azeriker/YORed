@@ -16,7 +16,7 @@ namespace YORed.Domain.Services
         {
             if(!_userRepository.Exists(phone, "123"))
                 _userRepository.Create(new User { Login = phone, Password = "123", Role = role });
-
+            
             return true;
         }
     }

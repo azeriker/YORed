@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using YORed.Domain.Enums;
 
@@ -12,7 +13,7 @@ namespace YORed.Domain.Entities
             Photos = new List<string>();
         }
 
-        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
         public string Title { get; set; }
