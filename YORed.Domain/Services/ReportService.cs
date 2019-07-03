@@ -4,7 +4,7 @@ using YORed.Domain.Interfaces;
 
 namespace YORed.Domain.Services
 {
-    public class ReportService
+    public class ReportService : IReportService
     {
         private readonly IReportRepository _reportRepository;
 
