@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 using YORed.Domain.Entities;
 using YORed.Domain.Interfaces;
@@ -18,21 +19,24 @@ namespace YORed.Controllers
             _userService = userService;
         }
 
+        [Authorize(Roles = "Moderator")]
         [HttpGet]
-        public IActionResult AllReports()
+        public IActionResult Index()
         {
             ViewBag.Reports = _reportService.Get();
-            return View("AllReports.cshtml");
+            return View("Index.cshtml");
         }
 
+        [Authorize(Roles = "Moderator")]
         [HttpGet]
         public IActionResult MyReports(string id)
         {
             var user = _userService.GetByLogin(User.Identity.Name);
             ViewBag.Reports = _reportService.GetByModeratorId(user.Id);
-            return View("AllReports.cshtml");
+            return View("MyReports.cshtml");
         }
 
+        [Authorize(Roles = "Moderator")]
         [HttpGet]
         public IActionResult Report(string id)
         {
