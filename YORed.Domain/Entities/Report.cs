@@ -22,8 +22,10 @@ namespace YORed.Domain.Entities
 
         public DateTime Date { get; set; }
 
+        [BsonRepresentation(BsonType.ObjectId)]
         public string UserId { get; set; }
 
+        [BsonRepresentation(BsonType.ObjectId)]
         public string ModeratorId { get; set; }
 
         public string Description { get; set; }
