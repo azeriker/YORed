@@ -10,6 +10,8 @@ namespace YORed.Domain.Interfaces
 
         Report Get(string id);
 
+        List<Report> Get();
+
         List<Report> GetByModeratorId(string id);
 
         List<Report> GetByUserId(string id);

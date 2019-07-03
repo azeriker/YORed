@@ -24,6 +24,11 @@ namespace YORed.Domain.Repositories
             return _collection.Find(i => i.Id == id).FirstOrDefault();
         }
 
+        public List<Report> Get()
+        {
+            return _collection.Find(_ => true).ToList();
+        }
+
         public List<Report> GetByModeratorId(string id)
         {
             return _collection.Find(i => i.ModeratorId == id).ToList();

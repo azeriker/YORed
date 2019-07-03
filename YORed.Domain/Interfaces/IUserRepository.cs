@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+
 using YORed.Domain.Entities;
 
 namespace YORed.Domain.Interfaces
@@ -11,6 +13,8 @@ namespace YORed.Domain.Interfaces
         IEnumerable<User> Get();
 
         User Get(string id);
+
+        User Get<TField>(Expression<Func<User, TField>> field, TField value);
 
         void Update(User user);
 

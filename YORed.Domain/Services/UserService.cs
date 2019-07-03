@@ -1,4 +1,5 @@
-﻿using YORed.Domain.Infrastructure;
+﻿using YORed.Domain.Entities;
+using YORed.Domain.Infrastructure;
 using YORed.Domain.Interfaces;
 
 namespace YORed.Domain.Services
@@ -10,6 +11,11 @@ namespace YORed.Domain.Services
         public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
+        }
+
+        public User GetByLogin(string login)
+        {
+            return _userRepository.Get(i => i.Login.Phone, login);
         }
 
         public OperationResult Login(string phone, string password)

@@ -23,6 +23,11 @@ namespace YORed.Domain.Services
             return _reportRepository.Get(id);
         }
 
+        public List<Report> Get()
+        {
+            return _reportRepository.Get();
+        }
+
         public List<Report> GetByModeratorId(string id)
         {
             return _reportRepository.GetByModeratorId(id);

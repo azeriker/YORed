@@ -1,7 +1,8 @@
-﻿using System;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using YORed.Domain.Entities;
-using YORed.Domain.Infrastructure;
 using YORed.Domain.Interfaces;
 
 namespace YORed.Domain.Repositories
@@ -23,6 +24,17 @@ namespace YORed.Domain.Repositories
         public User Get(string id)
         {
             return _collection.Find(i => i.Id == id).FirstOrDefault();
+        }
+
+        public IEnumerable<User> Get()
+        {
+            return _collection.Find(_ => true).ToList();
+        }
+
+        public User Get<TField>(Expression<Func<User, TField>> field, TField value)
+        {
+            FilterDefinition<User> filter = Builders<User>.Filter.Eq(field, value);
+            return _collection.Find(filter).FirstOrDefault();
         }
 
         public bool Exists(string phone, string password)
