@@ -53,10 +53,10 @@ namespace YORed
 
 
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IReportRepository, ReportRepository>();
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IUserService, UserService>();
-            //services.AddTransient<IAdminService, IAdminService>(); todo
+            services.AddTransient<IReportService, ReportService>();
+            services.AddTransient<IAdminService, AdminService>(); 
 
             services.AddTransient<MongoContext, MongoContext>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

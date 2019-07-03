@@ -9,7 +9,7 @@ namespace YORed.Domain.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private IMongoCollection<User> _collection;
+        private readonly IMongoCollection<User> _collection;
 
         public UserRepository(MongoContext context)
         {

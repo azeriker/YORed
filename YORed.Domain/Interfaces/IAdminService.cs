@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using YORed.Domain.Entities;
+﻿using YORed.Domain.Entities;
 
 namespace YORed.Domain.Interfaces
 {
@@ -9,5 +6,4 @@ namespace YORed.Domain.Interfaces
     {
         bool CreateUser(string phone, UserRole role);
     }
-
 }
