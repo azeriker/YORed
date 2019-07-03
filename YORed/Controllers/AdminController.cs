@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using YORed.Domain.Entities;
@@ -26,7 +27,7 @@ namespace YORed.Controllers
             _adminService = adminService;
             _userRepository = userRepository;
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Login() => View();
 
@@ -49,7 +50,7 @@ namespace YORed.Controllers
             return RedirectToAction("Index", "Admin");
 
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult CreateUser(string phone, string type)
         {
@@ -57,7 +58,7 @@ namespace YORed.Controllers
             return RedirectToAction("Index", "Admin", result ? "?result=success" : "?result=fail");
         }
 
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var users = _userRepository.Get();
