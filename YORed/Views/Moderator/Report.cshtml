@@ -6,12 +6,12 @@
 <h2>Заявка</h2>
 
 <div class="jumbotron col-sm-6 col-sm-offset-2">
-    <form asp-controller="Parsers" asp-action="Update" method="post">
+    <form asp-controller="Moderator" asp-action="UpdateReport" method="post">
         @Html.AntiForgeryToken()
         <input name="Id" type="hidden" value="@ViewBag.Report.Id" />
         <div class="row">
             <label class="col-sm-6 text-center">Заголовок</label>
-            @if (ViewBag.Status != 0)
+            @if (ViewBag.UserId != ViewBag.Report.ModeratorId)
             {
                 <input type="text" class="col-sm-6 form-control mb-3" name="Title" value="@ViewBag.Report.Title" disabled />
             }
@@ -29,34 +29,36 @@
         <br />
 
         <label class="col-sm-6 text-center">Статус</label>
-        @if (ViewBag.Status != 0)
+        @if (ViewBag.UserId != ViewBag.Report.ModeratorId)
         {
-            <select name="Status" size="4" value="@ViewBag.Report.Status" disabled>
-                <option value="0">New</option>
-                <option value="1">In progress</option>
-                <option value="2">Done</option>
-                <option value="3">Rejected</option>
-            </select>
+        <select name="Status" value="@ViewBag.Report.Status" disabled>
+            <option value=@ViewBag.Report.Status selected>@ViewBag.Report.Status.ToString()</option>
+            <option value=0>Новая</option>
+            <option value=1>Принято в обработку</option>
+            <option value=2>Выполнено</option>
+            <option value=3>Отклонено</option>
+        </select>
         }
         else
         {
-            <select name="Status" size="4" value="@ViewBag.Report.Status">
-                <option value="0">New</option>
-                <option value="1">In progress</option>
-                <option value="2">Done</option>
-                <option value="3">Rejected</option>
+            <select name="Status">
+                <option value=@ViewBag.Report.Status selected>@ViewBag.Report.Status.ToString()</option>
+                <option value=0>Новая</option>
+                <option value=1>Принято в обработку</option>
+                <option value=2>Выполнено</option>
+                <option value=3>Отклонено</option>
             </select>
         }
         <br />
         <div class="row">
             <label class="col-sm-6 text-center">Описание</label>
-            @if (ViewBag.Status != 0)
+            @if (ViewBag.UserId != ViewBag.Report.ModeratorId)
             {
-                <textarea class="col-sm-6 form-control mb-3" name="Description" placeholder="Description" value="@ViewBag.Report.Description" disabled></textarea>
+            <textarea class="col-sm-6 form-control mb-3" name="Description" placeholder="Description" value="@ViewBag.Report.Description" disabled>@ViewBag.Report.Description</textarea>
             }
             else
             {
-                <textarea class="col-sm-6 form-control mb-3" name="Description" placeholder="Description" value="@ViewBag.Report.Description"></textarea>
+            <textarea class="col-sm-6 form-control mb-3" name="Description" placeholder="Description" value="@ViewBag.Report.Description">@ViewBag.Report.Description</textarea>
             }
         </div>
         <br />
@@ -71,13 +73,13 @@
 
         <div class="row">
             <label class="col-sm-6 text-center">Комментарий</label>
-            @if (ViewBag.Status != 0)
+            @if (ViewBag.UserId != ViewBag.Report.ModeratorId)
             {
-                <textarea class="col-sm-6 form-control mb-3" name="Comment" placeholder="Comment" value="@ViewBag.Report.Comment" disabled></textarea>
+            <textarea class="col-sm-6 form-control mb-3" name="Comment" placeholder="Comment" value="@ViewBag.Report.Comment" disabled>@ViewBag.Report.Comment</textarea>
             }
             else
             {
-                <textarea class="col-sm-6 form-control mb-3" name="Comment" placeholder="Comment" value="@ViewBag.Report.Comment"></textarea>
+            <textarea class="col-sm-6 form-control mb-3" name="Comment" placeholder="Comment" value="@ViewBag.Report.Comment">@ViewBag.Report.Comment</textarea>
             }
         </div>
         <br />
@@ -95,8 +97,11 @@
             <span class="col-sm-6 form-control mb-3">@ViewBag.Report.Longitude</span>
         </div>
         <br />
+        
+        <input type="hidden" name="UserId" value="@ViewBag.Report.UserId" required>
+        <input type="hidden" name="ModeratorId" value="@ViewBag.Report.ModeratorId" required>
 
-        @if (ViewBag.Status != 0)
+        @if (ViewBag.UserId != ViewBag.Report.ModeratorId)
         {
             <button type="submit" class="btn" id="Report-submit" disabled="">Обновить</button>
         }
@@ -108,34 +113,34 @@
 </div>
 
 <script>
-            //function parserReportClicked(ip) {
-            //    window.$.ajax({
-            //        url: '/Parsers/Report?ip=' + ip,
-            //        dataType: 'json',
-            //        type: 'GET',
-            //        processData: false,
-            //        async: false,
-            //        headers: {
-            //            'Accept': 'application/json',
-            //            'Content-Type': 'application/json'
-            //        },
-            //        success: function (json) {
-            //            $('#proxyApiLogin').text(json["ProxyApiLogin"]);
-            //            $('#proxyApiPassword').text(json["ProxyApiPassword"]);
-            //            $('#parsingPeriodHours').text(json["ParsingPeriodHours"]);
+                //function parserReportClicked(ip) {
+                //    window.$.ajax({
+                //        url: '/Parsers/Report?ip=' + ip,
+                //        dataType: 'json',
+                //        type: 'GET',
+                //        processData: false,
+                //        async: false,
+                //        headers: {
+                //            'Accept': 'application/json',
+                //            'Content-Type': 'application/json'
+                //        },
+                //        success: function (json) {
+                //            $('#proxyApiLogin').text(json["ProxyApiLogin"]);
+                //            $('#proxyApiPassword').text(json["ProxyApiPassword"]);
+                //            $('#parsingPeriodHours').text(json["ParsingPeriodHours"]);
 
-            //            $('#keywordQueueSize').text(json["KeywordDirectorReport"]["QueueSize"]);
-            //            $('#keywordPullerTimeout').text(json["KeywordDirectorReport"]["PullerTimeout"]);
-            //            $('#keywordPusherTimeout').text(json["KeywordDirectorReport"]["PusherTimeout"]);
-            //            $('#keywordParallelDegree').text(json["KeywordDirectorReport"]["ParallelDegree"]);
-            //            $('#keywordGreedLevel').text(json["KeywordDirectorReport"]["GreedLevel"]);
+                //            $('#keywordQueueSize').text(json["KeywordDirectorReport"]["QueueSize"]);
+                //            $('#keywordPullerTimeout').text(json["KeywordDirectorReport"]["PullerTimeout"]);
+                //            $('#keywordPusherTimeout').text(json["KeywordDirectorReport"]["PusherTimeout"]);
+                //            $('#keywordParallelDegree').text(json["KeywordDirectorReport"]["ParallelDegree"]);
+                //            $('#keywordGreedLevel').text(json["KeywordDirectorReport"]["GreedLevel"]);
 
-            //            $('#keywordProductQueueSize').text(json["KeywordProductDirectorReport"]["QueueSize"]);
-            //            $('#keywordProductPullerTimeout').text(json["KeywordProductDirectorReport"]["PullerTimeout"]);
-            //            $('#keywordProductPusherTimeout').text(json["KeywordProductDirectorReport"]["PusherTimeout"]);
-            //            $('#keywordProductParallelDegree').text(json["KeywordProductDirectorReport"]["ParallelDegree"]);
-            //            $('#keywordProductGreedLevel').text(json["KeywordProductDirectorReport"]["GreedLevel"]);
-            //        }
-            //    });
-            //}
+                //            $('#keywordProductQueueSize').text(json["KeywordProductDirectorReport"]["QueueSize"]);
+                //            $('#keywordProductPullerTimeout').text(json["KeywordProductDirectorReport"]["PullerTimeout"]);
+                //            $('#keywordProductPusherTimeout').text(json["KeywordProductDirectorReport"]["PusherTimeout"]);
+                //            $('#keywordProductParallelDegree').text(json["KeywordProductDirectorReport"]["ParallelDegree"]);
+                //            $('#keywordProductGreedLevel').text(json["KeywordProductDirectorReport"]["GreedLevel"]);
+                //        }
+                //    });
+                //}
 </script>

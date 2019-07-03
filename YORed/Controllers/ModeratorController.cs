@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Runtime.Serialization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using MongoDB.Bson;
+using Newtonsoft.Json.Bson;
 using YORed.Domain.Entities;
 using YORed.Domain.Interfaces;
 
@@ -23,17 +25,17 @@ namespace YORed.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            ViewBag.Reports = _reportService.Get();
-            return View("Index.cshtml");
+          ViewBag.Reports = _reportService.Get();
+            return View("Index");
         }
 
         [Authorize(Roles = "Moderator")]
         [HttpGet]
-        public IActionResult MyReports(string id)
+        public IActionResult MyReports()
         {
-            var user = _userService.GetByLogin(User.Identity.Name);
+            var user = GetCurrentUser();
             ViewBag.Reports = _reportService.GetByModeratorId(user.Id);
-            return View("MyReports.cshtml");
+            return View("MyReports");
         }
 
         [Authorize(Roles = "Moderator")]
@@ -41,8 +43,10 @@ namespace YORed.Controllers
         public IActionResult Report(string id)
         {
             var report = _reportService.Get(id);
+            var user = GetCurrentUser();
+            ViewBag.UserId = user.Id;
             ViewBag.Report = report;
-            return View("Report.cshtml");
+            return View("Report");
         }
 
         [HttpPost]
@@ -51,6 +55,11 @@ namespace YORed.Controllers
             _reportService.AppointIfPossible(report, User.Identity.Name);
             _reportService.Update(report);
             return Report(report.Id);
+        }
+
+        private User GetCurrentUser()
+        {
+            return _userService.GetByLogin(User.Identity.Name);
         }
     }
 }

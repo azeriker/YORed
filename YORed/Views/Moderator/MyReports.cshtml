@@ -5,8 +5,7 @@
 }
 
 <h2>My Reports</h2>
-
-<h2>All Reports</h2>
+<a href="/Moderator/Index">View all reports</a>
 @foreach (Report report in ViewBag.Reports)
 {
     <div class="row">
@@ -16,6 +15,7 @@
                     <span style="font-weight: 900" class="col-sm-12">Title: @report.Title</span>
                     <span class="col-sm-12">Date: @report.Date</span>
                     <span class="col-sm-12">Status: @report.Status</span>
+                    <a class="btn" href="/Moderator/Report?id=@report.Id">Открыть</a>
                 </div>
             </div>
         </div>

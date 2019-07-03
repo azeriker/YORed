@@ -33,9 +33,9 @@ namespace YORed.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult CreateUser(string phone, string type)
+        public IActionResult CreateUser(string phone, string role)
         {
-            var result = _adminService.CreateUser(phone, Enum.Parse<UserRole>(type));
+            var result = _adminService.CreateUser(phone, Enum.Parse<UserRole>(role));
             return RedirectToAction("Index", "Admin", result ? "?result=success" : "?result=fail");
         }
 
