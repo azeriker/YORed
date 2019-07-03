@@ -11,7 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using YORed.Domain.Interfaces;
 using YORed.Domain.Repositories;
+using YORed.Domain.Services;
 
 namespace YORed
 {
@@ -48,6 +50,13 @@ namespace YORed
                         ValidateIssuerSigningKey = true,
                     };
                 });
+
+
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserService, UserService>();
+            //services.AddTransient<IAdminService, IAdminService>(); todo
 
             services.AddTransient<MongoContext, MongoContext>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
