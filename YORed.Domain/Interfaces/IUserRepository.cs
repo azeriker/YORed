@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using YORed.Domain.Entites;
+using YORed.Domain.Entities;
 using YORed.Domain.Infrastructure;
 
 namespace YORed.Domain.Interfaces
