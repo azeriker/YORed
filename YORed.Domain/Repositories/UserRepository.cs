@@ -25,6 +25,11 @@ namespace YORed.Domain.Repositories
             return _collection.Find(i => i.Id == id).FirstOrDefault();
         }
 
+        public bool Exists(string phone, string password)
+        {
+            return _collection.Find(i => i.Login.Phone == phone && i.Password == password).FirstOrDefault() != null;
+        }
+
         public void Update(User user)
         {
             //var update = Builders<User>.Update

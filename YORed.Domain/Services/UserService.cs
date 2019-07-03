@@ -1,20 +1,25 @@
-﻿using System;
-
-using YORed.Domain.Infrastructure;
+﻿using YORed.Domain.Infrastructure;
 using YORed.Domain.Interfaces;
 
 namespace YORed.Domain.Services
 {
     public class UserService : IUserService
     {
-        public OperationResult Register(string phone, string password)
+        private readonly IUserRepository _userRepository;
+
+        public UserService(IUserRepository userRepository)
         {
-            throw new NotImplementedException();
+            _userRepository = userRepository;
         }
 
         public OperationResult Login(string phone, string password)
         {
-            throw new NotImplementedException();
+            var success = _userRepository.Exists(phone, password);
+
+            return new OperationResult
+            {
+                Success = success
+            };
         }
     }
 }
