@@ -16,6 +16,8 @@ namespace YORed.Domain.Entities
         public Login Login { get; set; }
         public string Password { get; set; }
         public UserRole Role { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 
     public class Login
@@ -24,6 +26,7 @@ namespace YORed.Domain.Entities
         {
             Phone = phone;
         }
+
         public string Phone { get; }
     }
 }
