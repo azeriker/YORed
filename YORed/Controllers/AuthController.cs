@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Bson;
 using Newtonsoft.Json;
-using YORed.Domain.Entites;
+
+using YORed.Domain.Entities;
 
 namespace YORed.Controllers
 {
