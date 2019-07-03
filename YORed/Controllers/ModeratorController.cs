@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+
 using YORed.Domain.Entities;
 using YORed.Domain.Interfaces;
 
@@ -31,6 +31,21 @@ namespace YORed.Controllers
             var user = _userService.GetByLogin(User.Identity.Name);
             ViewBag.Reports = _reportService.GetByModeratorId(user.Id);
             return View("AllReports.cshtml");
+        }
+
+        [HttpGet]
+        public IActionResult Report(string id)
+        {
+            var report = _reportService.Get(id);
+            ViewBag.Report = report;
+            return View("Report.cshtml");
+        }
+
+        [HttpPost]
+        public IActionResult UpdateReport(Report report)
+        {
+            _reportService.Update(report);
+            return Report(report.Id);
         }
     }
 }
