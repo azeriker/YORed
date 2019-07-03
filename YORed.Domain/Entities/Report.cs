@@ -1,14 +1,32 @@
-﻿namespace YORed.Domain.Entities
+﻿using System;
+using System.Collections.Generic;
+using YORed.Domain.Enums;
+
+namespace YORed.Domain.Entities
 {
     public class Report
     {
-        public string Photo { get; set; }
+        public Report()
+        {
+            Photos = new List<string>();
+            CommentsHistory = new List<string>();
+        }
+
+        public List<string> Photos { get; set; }
+
+        public DateTime Date { get; set; }
+
+        public string UserId { get; set; }
+
+        public string ModeratorId { get; set; }
 
         public string Title { get; set; }
 
         public string Description { get; set; }
 
-        public string RejectionReason { get; set; }
+        public ReportStatus Status { get; set; }
+
+        public List<string> CommentsHistory { get; set; }
 
         public string Latitude { get; set; }
 
