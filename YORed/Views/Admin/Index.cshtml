@@ -1,5 +1,29 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using YORed.Domain.Entities
+<div class="jumbotron">
+    @using (Html.BeginForm("CreateUser", "Admin", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col-sm-4">
+                <input type="text" class="form-control col-sm-5" name="phone" placeholder="Name">
+                <select name="role">
+                    <option value="user">Пользователь</option>
+                    <option value="moderator">Модератор</option>
+                </select>
+                <input type="submit" value="Создать" asp-action="Index" asp-controller="Admin" class="btn btn-success col-sm-5">
+            </div>
+        </div>
+    }
+
+
+    <hr/>
+    @foreach (User user in ViewBag.Users)
+    {
+        <div class="row">
+            <div class="col-sm-3">@user.Login</div>
+            <div class="col-sm-3">@user.FirstName</div>
+            <div class="col-sm-3">@user.LastName</div>
+            <div class="col-sm-3">@user.Role</div>
+        </div>
+        <hr/>
+    }
+</div>
