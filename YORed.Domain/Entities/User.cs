@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace YORed.Domain.Entites
+namespace YORed.Domain.Entities
 {
     public enum UserRole
     {
@@ -12,6 +8,7 @@ namespace YORed.Domain.Entites
         Moderator,
         Admin
     }
+
     public class User
     {
         [BsonId]
