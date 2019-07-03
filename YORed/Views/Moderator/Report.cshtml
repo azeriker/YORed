@@ -61,6 +61,14 @@
         </div>
         <br />
 
+        <label class="col-sm-6 text-center">Фотографии</label>
+        <div style="overflow-y: scroll">
+            @foreach (var photo in ViewBag.Report.Photos)
+            {
+                <img width="200" height="200" src="data:image/gif;base64,@photo" />
+            }
+        </div>
+
         <div class="row">
             <label class="col-sm-6 text-center">Комментарий</label>
             @if (ViewBag.Status != 0)
@@ -100,34 +108,34 @@
 </div>
 
 <script>
-        //function parserReportClicked(ip) {
-        //    window.$.ajax({
-        //        url: '/Parsers/Report?ip=' + ip,
-        //        dataType: 'json',
-        //        type: 'GET',
-        //        processData: false,
-        //        async: false,
-        //        headers: {
-        //            'Accept': 'application/json',
-        //            'Content-Type': 'application/json'
-        //        },
-        //        success: function (json) {
-        //            $('#proxyApiLogin').text(json["ProxyApiLogin"]);
-        //            $('#proxyApiPassword').text(json["ProxyApiPassword"]);
-        //            $('#parsingPeriodHours').text(json["ParsingPeriodHours"]);
+            //function parserReportClicked(ip) {
+            //    window.$.ajax({
+            //        url: '/Parsers/Report?ip=' + ip,
+            //        dataType: 'json',
+            //        type: 'GET',
+            //        processData: false,
+            //        async: false,
+            //        headers: {
+            //            'Accept': 'application/json',
+            //            'Content-Type': 'application/json'
+            //        },
+            //        success: function (json) {
+            //            $('#proxyApiLogin').text(json["ProxyApiLogin"]);
+            //            $('#proxyApiPassword').text(json["ProxyApiPassword"]);
+            //            $('#parsingPeriodHours').text(json["ParsingPeriodHours"]);
 
-        //            $('#keywordQueueSize').text(json["KeywordDirectorReport"]["QueueSize"]);
-        //            $('#keywordPullerTimeout').text(json["KeywordDirectorReport"]["PullerTimeout"]);
-        //            $('#keywordPusherTimeout').text(json["KeywordDirectorReport"]["PusherTimeout"]);
-        //            $('#keywordParallelDegree').text(json["KeywordDirectorReport"]["ParallelDegree"]);
-        //            $('#keywordGreedLevel').text(json["KeywordDirectorReport"]["GreedLevel"]);
+            //            $('#keywordQueueSize').text(json["KeywordDirectorReport"]["QueueSize"]);
+            //            $('#keywordPullerTimeout').text(json["KeywordDirectorReport"]["PullerTimeout"]);
+            //            $('#keywordPusherTimeout').text(json["KeywordDirectorReport"]["PusherTimeout"]);
+            //            $('#keywordParallelDegree').text(json["KeywordDirectorReport"]["ParallelDegree"]);
+            //            $('#keywordGreedLevel').text(json["KeywordDirectorReport"]["GreedLevel"]);
 
-        //            $('#keywordProductQueueSize').text(json["KeywordProductDirectorReport"]["QueueSize"]);
-        //            $('#keywordProductPullerTimeout').text(json["KeywordProductDirectorReport"]["PullerTimeout"]);
-        //            $('#keywordProductPusherTimeout').text(json["KeywordProductDirectorReport"]["PusherTimeout"]);
-        //            $('#keywordProductParallelDegree').text(json["KeywordProductDirectorReport"]["ParallelDegree"]);
-        //            $('#keywordProductGreedLevel').text(json["KeywordProductDirectorReport"]["GreedLevel"]);
-        //        }
-        //    });
-        //}
+            //            $('#keywordProductQueueSize').text(json["KeywordProductDirectorReport"]["QueueSize"]);
+            //            $('#keywordProductPullerTimeout').text(json["KeywordProductDirectorReport"]["PullerTimeout"]);
+            //            $('#keywordProductPusherTimeout').text(json["KeywordProductDirectorReport"]["PusherTimeout"]);
+            //            $('#keywordProductParallelDegree').text(json["KeywordProductDirectorReport"]["ParallelDegree"]);
+            //            $('#keywordProductGreedLevel').text(json["KeywordProductDirectorReport"]["GreedLevel"]);
+            //        }
+            //    });
+            //}
 </script>
