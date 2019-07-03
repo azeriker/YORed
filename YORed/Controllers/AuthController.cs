@@ -91,10 +91,10 @@ namespace YORed.Controllers
             return Ok($"Ваш логин: {User.Identity.Name}");
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,User,Moderator")]
         public IActionResult GetRole()
         {
-            return Ok("Ваша роль: администратор");
+            return Ok($"Ваша роль: {User.Claims.ToString()}");
         }
     }
 }
