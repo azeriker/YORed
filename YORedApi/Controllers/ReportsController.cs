@@ -1,26 +1,31 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using YORed.Domain.Entities;
 using YORed.Domain.Interfaces;
 
-namespace YORed.Controllers
+namespace YORedApi.Controllers
 {
-    public class ReportsController : Controller
+    [Route("api/[controller]/[action]")]
+    [ApiController]
+    
+    public class ReportsController : ControllerBase
     {
         private readonly IReportService _reportService;
         private readonly IUserService _userService;
 
         public ReportsController(
-            IReportService reportService, 
+            IReportService reportService,
             IUserService userService)
         {
             _reportService = reportService;
             _userService = userService;
         }
 
+        [HttpPost]
         [Authorize(Roles = "User")]
-        public void Create([FromBody] Report report)
+        public void Create(Report report)
         {
             var user = _userService.GetByLogin(User.Identity.Name);
             _reportService.Create(report, user.Id);
