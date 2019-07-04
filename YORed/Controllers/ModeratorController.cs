@@ -26,7 +26,8 @@ namespace YORed.Controllers
         public IActionResult Index()
         {
           ViewBag.Reports = _reportService.Get();
-            return View("Index");
+          ViewBag.Title = "Все заявки";
+          return View("Index");
         }
 
         [Authorize(Roles = "Moderator")]
@@ -34,8 +35,9 @@ namespace YORed.Controllers
         public IActionResult MyReports()
         {
             var user = GetCurrentUser();
+            ViewBag.Title = "Мои заявки";
             ViewBag.Reports = _reportService.GetByModeratorId(user.Id);
-            return View("MyReports");
+            return View("Index");
         }
 
         [Authorize(Roles = "Moderator")]
