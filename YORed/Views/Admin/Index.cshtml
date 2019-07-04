@@ -3,19 +3,24 @@
     @using (Html.BeginForm("CreateUser", "Admin", FormMethod.Post))
     {
         <div class="row">
-            <div class="col-sm-4">
-                <input type="text" class="form-control col-sm-5" name="phone" placeholder="Name">
-                <select name="role">
-                    <option value="User">Пользователь</option>
-                    <option value="Moderator">Модератор</option>
-                </select>
-                <input type="submit" value="Создать" class="btn btn-success col-sm-5">
+
+            <div class="col-sm-offset-4 col-sm-4">
+                <div class="row">
+                    <input type="number" maxlength="11" min="70000000000" class="form-control" name="phone" placeholder="79993332244">
+                </div>
+                <div class="row" style="margin-top: 10px">
+                    <select name="role" class="col-sm-5">
+                        <option value="User">Пользователь</option>
+                        <option value="Moderator">Модератор</option>
+                    </select>
+                    <input type="submit" value="Создать" class="btn btn-success col-sm-offset-3 col-sm-4">
+                </div>
             </div>
         </div>
     }
 
 
-    <hr/>
+    <hr />
     @foreach (User user in ViewBag.Users)
     {
         <div class="row">
@@ -24,6 +29,6 @@
             <div class="col-sm-3">@user.LastName</div>
             <div class="col-sm-3">@user.Role</div>
         </div>
-        <hr/>
+        <hr />
     }
 </div>
