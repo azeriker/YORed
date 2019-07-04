@@ -3,144 +3,144 @@
     ViewData["Title"] = "Report";
 }
 
-<h2>Заявка</h2>
+<br />
+<div class="row">
+    <div class="jumbotron col-sm-6 col-sm-offset-2">
+        <form asp-controller="Moderator" asp-action="UpdateReport" method="post">
+            @Html.AntiForgeryToken()
+            <input name="Id" type="hidden" value="@ViewBag.Report.Id" />
+            <div class="row">
+                <label class="col-sm-6 text-center">Заголовок</label>
+                @if (ViewBag.Report.Status == 0 || ViewBag.UserId == ViewBag.Report.ModeratorId)
+                {
+                    <input type="text" class="col-sm-6 form-control mb-3" name="Title" value="@ViewBag.Report.Title" />
+                }
+                else
+                {
+                    <input type="text" class="col-sm-6 form-control mb-3" name="Title" value="@ViewBag.Report.Title" disabled/>
+                }
+            </div>
+            <br />
+            <div class="row">
+                <label class="col-sm-6 text-center">Дата</label>
+                <input type="hidden" name="Date" value="@ViewBag.Report.Date" required>
+                <span class="col-sm-6 form-control mb-3">@ViewBag.Report.Date</span>
+            </div>
+            <br />
 
-<div class="jumbotron col-sm-6 col-sm-offset-2">
-    <form asp-controller="Moderator" asp-action="UpdateReport" method="post">
-        @Html.AntiForgeryToken()
-        <input name="Id" type="hidden" value="@ViewBag.Report.Id" />
-        <div class="row">
-            <label class="col-sm-6 text-center">Заголовок</label>
-            @if (ViewBag.UserId != ViewBag.Report.ModeratorId)
+            <label class="col-sm-6 text-center">Статус</label>
+            @if (ViewBag.Report.Status == 0 || ViewBag.UserId == ViewBag.Report.ModeratorId)
             {
-                <input type="text" class="col-sm-6 form-control mb-3" name="Title" value="@ViewBag.Report.Title" disabled />
+                <select name="Status">
+                    <option value=@ViewBag.Report.Status selected>@ViewBag.Report.Status.ToString()</option>
+                    <option value=0>Новая</option>
+                    <option value=1>Принято в обработку</option>
+                    <option value=2>Выполнено</option>
+                    <option value=3>Отклонено</option>
+                </select>
             }
             else
             {
-                <input type="text" class="col-sm-6 form-control mb-3" name="Title" value="@ViewBag.Report.Title" />
+                <select name="Status" disabled>
+                    <option value=@ViewBag.Report.Status selected>@ViewBag.Report.Status.ToString()</option>
+                    <option value=0>Новая</option>
+                    <option value=1>Принято в обработку</option>
+                    <option value=2>Выполнено</option>
+                    <option value=3>Отклонено</option>
+                </select>
             }
-        </div>
-        <br />
-        <div class="row">
-            <label class="col-sm-6 text-center">Дата</label>
-            <input type="hidden" name="Date" value="@ViewBag.Report.Date" required>
-            <span class="col-sm-6 form-control mb-3">@ViewBag.Report.Date</span>
-        </div>
-        <br />
+            <br />
+            <div class="row">
+                <label class="col-sm-6 text-center">Описание</label>
+                @if (ViewBag.Report.Status == 0 || ViewBag.UserId == ViewBag.Report.ModeratorId)
+                {
+                    <textarea class="col-sm-6 form-control mb-3" name="Description" placeholder="Description" value="@ViewBag.Report.Description">@ViewBag.Report.Description</textarea>
+                }
+                else
+                {
+                    <textarea class="col-sm-6 form-control mb-3" name="Description" placeholder="Description" value="@ViewBag.Report.Description" disabled>@ViewBag.Report.Description</textarea>
+                }
+            </div>
+            <br />
 
-        <label class="col-sm-6 text-center">Статус</label>
-        @if (ViewBag.UserId != ViewBag.Report.ModeratorId)
-        {
-        <select name="Status" value="@ViewBag.Report.Status" disabled>
-            <option value=@ViewBag.Report.Status selected>@ViewBag.Report.Status.ToString()</option>
-            <option value=0>Новая</option>
-            <option value=1>Принято в обработку</option>
-            <option value=2>Выполнено</option>
-            <option value=3>Отклонено</option>
-        </select>
-        }
-        else
-        {
-            <select name="Status">
-                <option value=@ViewBag.Report.Status selected>@ViewBag.Report.Status.ToString()</option>
-                <option value=0>Новая</option>
-                <option value=1>Принято в обработку</option>
-                <option value=2>Выполнено</option>
-                <option value=3>Отклонено</option>
-            </select>
-        }
-        <br />
-        <div class="row">
-            <label class="col-sm-6 text-center">Описание</label>
-            @if (ViewBag.UserId != ViewBag.Report.ModeratorId)
+            <label class="col-sm-6 text-center">Фотографии</label>
+            <div style="overflow-y: scroll">
+                @foreach (var photo in ViewBag.Report.Photos)
+                {
+                    <img width="200" height="200" src="data:image/gif;base64,@photo" />
+                }
+            </div>
+
+            <div class="row">
+                <label class="col-sm-6 text-center">Комментарий</label>
+                @if (ViewBag.Report.Status == 0 || ViewBag.UserId == ViewBag.Report.ModeratorId)
+                {
+                    <textarea class="col-sm-6 form-control mb-3" name="Comment" placeholder="Comment" value="@ViewBag.Report.Comment">@ViewBag.Report.Comment</textarea>
+                }
+                else
+                {
+                    <textarea class="col-sm-6 form-control mb-3" name="Comment" placeholder="Comment" value="@ViewBag.Report.Comment" disabled>@ViewBag.Report.Comment</textarea>
+                }
+            </div>
+            <br />
+
+            <div class="row">
+                <label class="col-sm-6 text-center">Широта</label>
+                <input type="hidden" name="Latitude" value="@ViewBag.Report.Latitude" required>
+                <span class="col-sm-6 form-control mb-3">@ViewBag.Report.Latitude</span>
+            </div>
+            <br />
+
+            <div class="row">
+                <label class="col-sm-6 text-center">Долгота</label>
+                <input type="hidden" name="Longitude" value="@ViewBag.Report.Longitude" required>
+                <span class="col-sm-6 form-control mb-3">@ViewBag.Report.Longitude</span>
+            </div>
+            <br />
+
+            <input type="hidden" name="UserId" value="@ViewBag.Report.UserId" required>
+            <input type="hidden" name="ModeratorId" value="@ViewBag.Report.ModeratorId" required>
+
+            @if (ViewBag.Report.Status == 0 || ViewBag.UserId == ViewBag.Report.ModeratorId)
             {
-            <textarea class="col-sm-6 form-control mb-3" name="Description" placeholder="Description" value="@ViewBag.Report.Description" disabled>@ViewBag.Report.Description</textarea>
+                <button type="submit" class="btn" id="Report-submit">Обновить</button>
             }
             else
             {
-            <textarea class="col-sm-6 form-control mb-3" name="Description" placeholder="Description" value="@ViewBag.Report.Description">@ViewBag.Report.Description</textarea>
+                <button type="submit" class="btn" id="Report-submit" disabled>Обновить</button>
             }
-        </div>
-        <br />
-
-        <label class="col-sm-6 text-center">Фотографии</label>
-        <div style="overflow-y: scroll">
-            @foreach (var photo in ViewBag.Report.Photos)
-            {
-                <img width="200" height="200" src="data:image/gif;base64,@photo" />
-            }
-        </div>
-
-        <div class="row">
-            <label class="col-sm-6 text-center">Комментарий</label>
-            @if (ViewBag.UserId != ViewBag.Report.ModeratorId)
-            {
-            <textarea class="col-sm-6 form-control mb-3" name="Comment" placeholder="Comment" value="@ViewBag.Report.Comment" disabled>@ViewBag.Report.Comment</textarea>
-            }
-            else
-            {
-            <textarea class="col-sm-6 form-control mb-3" name="Comment" placeholder="Comment" value="@ViewBag.Report.Comment">@ViewBag.Report.Comment</textarea>
-            }
-        </div>
-        <br />
-
-        <div class="row">
-            <label class="col-sm-6 text-center">Широта</label>
-            <input type="hidden" name="Latitude" value="@ViewBag.Report.Latitude" required>
-            <span class="col-sm-6 form-control mb-3">@ViewBag.Report.Latitude</span>
-        </div>
-        <br />
-
-        <div class="row">
-            <label class="col-sm-6 text-center">Долгота</label>
-            <input type="hidden" name="Longitude" value="@ViewBag.Report.Longitude" required>
-            <span class="col-sm-6 form-control mb-3">@ViewBag.Report.Longitude</span>
-        </div>
-        <br />
-        
-        <input type="hidden" name="UserId" value="@ViewBag.Report.UserId" required>
-        <input type="hidden" name="ModeratorId" value="@ViewBag.Report.ModeratorId" required>
-
-        @if (ViewBag.UserId != ViewBag.Report.ModeratorId)
-        {
-            <button type="submit" class="btn" id="Report-submit" disabled="">Обновить</button>
-        }
-        else
-        {
-            <button type="submit" class="btn" id="Report-submit">Обновить</button>
-        }
-    </form>
+        </form>
+    </div>
 </div>
-
 <script>
-                //function parserReportClicked(ip) {
-                //    window.$.ajax({
-                //        url: '/Parsers/Report?ip=' + ip,
-                //        dataType: 'json',
-                //        type: 'GET',
-                //        processData: false,
-                //        async: false,
-                //        headers: {
-                //            'Accept': 'application/json',
-                //            'Content-Type': 'application/json'
-                //        },
-                //        success: function (json) {
-                //            $('#proxyApiLogin').text(json["ProxyApiLogin"]);
-                //            $('#proxyApiPassword').text(json["ProxyApiPassword"]);
-                //            $('#parsingPeriodHours').text(json["ParsingPeriodHours"]);
+                        //function parserReportClicked(ip) {
+                        //    window.$.ajax({
+                        //        url: '/Parsers/Report?ip=' + ip,
+                        //        dataType: 'json',
+                        //        type: 'GET',
+                        //        processData: false,
+                        //        async: false,
+                        //        headers: {
+                        //            'Accept': 'application/json',
+                        //            'Content-Type': 'application/json'
+                        //        },
+                        //        success: function (json) {
+                        //            $('#proxyApiLogin').text(json["ProxyApiLogin"]);
+                        //            $('#proxyApiPassword').text(json["ProxyApiPassword"]);
+                        //            $('#parsingPeriodHours').text(json["ParsingPeriodHours"]);
 
-                //            $('#keywordQueueSize').text(json["KeywordDirectorReport"]["QueueSize"]);
-                //            $('#keywordPullerTimeout').text(json["KeywordDirectorReport"]["PullerTimeout"]);
-                //            $('#keywordPusherTimeout').text(json["KeywordDirectorReport"]["PusherTimeout"]);
-                //            $('#keywordParallelDegree').text(json["KeywordDirectorReport"]["ParallelDegree"]);
-                //            $('#keywordGreedLevel').text(json["KeywordDirectorReport"]["GreedLevel"]);
+                        //            $('#keywordQueueSize').text(json["KeywordDirectorReport"]["QueueSize"]);
+                        //            $('#keywordPullerTimeout').text(json["KeywordDirectorReport"]["PullerTimeout"]);
+                        //            $('#keywordPusherTimeout').text(json["KeywordDirectorReport"]["PusherTimeout"]);
+                        //            $('#keywordParallelDegree').text(json["KeywordDirectorReport"]["ParallelDegree"]);
+                        //            $('#keywordGreedLevel').text(json["KeywordDirectorReport"]["GreedLevel"]);
 
-                //            $('#keywordProductQueueSize').text(json["KeywordProductDirectorReport"]["QueueSize"]);
-                //            $('#keywordProductPullerTimeout').text(json["KeywordProductDirectorReport"]["PullerTimeout"]);
-                //            $('#keywordProductPusherTimeout').text(json["KeywordProductDirectorReport"]["PusherTimeout"]);
-                //            $('#keywordProductParallelDegree').text(json["KeywordProductDirectorReport"]["ParallelDegree"]);
-                //            $('#keywordProductGreedLevel').text(json["KeywordProductDirectorReport"]["GreedLevel"]);
-                //        }
-                //    });
-                //}
+                        //            $('#keywordProductQueueSize').text(json["KeywordProductDirectorReport"]["QueueSize"]);
+                        //            $('#keywordProductPullerTimeout').text(json["KeywordProductDirectorReport"]["PullerTimeout"]);
+                        //            $('#keywordProductPusherTimeout').text(json["KeywordProductDirectorReport"]["PusherTimeout"]);
+                        //            $('#keywordProductParallelDegree').text(json["KeywordProductDirectorReport"]["ParallelDegree"]);
+                        //            $('#keywordProductGreedLevel').text(json["KeywordProductDirectorReport"]["GreedLevel"]);
+                        //        }
+                        //    });
+                        //}
 </script>
