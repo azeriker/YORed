@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using YORed.Domain.Entities;
 using YORed.Domain.Interfaces;
 
@@ -19,6 +20,7 @@ namespace YORed.Domain.Services
 
         public void Create(Report report)
         {
+            report.Date = DateTime.Now;
             _reportRepository.Create(report);
         }
 

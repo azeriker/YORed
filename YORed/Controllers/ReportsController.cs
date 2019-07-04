@@ -14,14 +14,24 @@ namespace YORed.Controllers
             _reportService = reportService;
         }
 
+        public void Create([FromBody] Report report)
+        {
+            _reportService.Create(report);
+        }
+
         public List<Report> Get()
         {
             return _reportService.Get();
         }
-    }
 
-    public class ListReportResponse
-    {
-        public List<Report> Reports { get; set; }
+        public Report GetById(string id)
+        {
+            return _reportService.Get(id);
+        }
+
+        public List<Report> GetByUserId(string id)
+        {
+            return _reportService.GetByUserId(id);
+        }
     }
 }
