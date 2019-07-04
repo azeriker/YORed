@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using YORed.Domain.Entities;
 using YORed.Domain.Interfaces;
@@ -8,15 +9,21 @@ namespace YORed.Controllers
     public class ReportsController : Controller
     {
         private readonly IReportService _reportService;
+        private readonly IUserService _userService;
 
-        public ReportsController(IReportService reportService)
+        public ReportsController(
+            IReportService reportService, 
+            IUserService userService)
         {
             _reportService = reportService;
+            _userService = userService;
         }
 
+        [Authorize(Roles = "User")]
         public void Create([FromBody] Report report)
         {
-            _reportService.Create(report);
+            var user = _userService.GetByLogin(User.Identity.Name);
+            _reportService.Create(report, user.Id);
         }
 
         public List<Report> Get()
@@ -29,9 +36,11 @@ namespace YORed.Controllers
             return _reportService.Get(id);
         }
 
-        public List<Report> GetByUserId(string id)
+        [Authorize(Roles = "User")]
+        public List<Report> GetByUser()
         {
-            return _reportService.GetByUserId(id);
+            var user = _userService.GetByLogin(User.Identity.Name);
+            return _reportService.GetByUserId(user.Id);
         }
     }
 }
