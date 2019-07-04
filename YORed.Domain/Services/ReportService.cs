@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using YORed.Domain.Entities;
+using YORed.Domain.Enums;
 using YORed.Domain.Interfaces;
 
 namespace YORed.Domain.Services
@@ -22,6 +23,8 @@ namespace YORed.Domain.Services
         {
             report.UserId = userId;
             report.Date = DateTime.Now;
+            report.Status = ReportStatus.New;
+
             _reportRepository.Create(report);
         }
 

@@ -20,7 +20,7 @@ namespace YORed.Domain.Entities
 
         public List<string> Photos { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
 
         [BsonRepresentation(BsonType.ObjectId)]
         public string UserId { get; set; }
@@ -30,7 +30,7 @@ namespace YORed.Domain.Entities
 
         public string Description { get; set; }
 
-        public ReportStatus Status { get; set; }
+        public ReportStatus? Status { get; set; }
 
         public string Comment { get; set; }
 
