@@ -26,7 +26,9 @@ namespace YORed.Domain.Repositories
 
         public List<Report> Get()
         {
-            return _collection.Find(_ => true).ToList();
+            var fieldsBuilder = Builders<Report>.Projection;
+            var fields = fieldsBuilder.Exclude(d => d.Photos);
+            return _collection.Find(_ => true).Project<Report>(fields).ToList();
         }
 
         public List<Report> GetByModeratorId(string id)
