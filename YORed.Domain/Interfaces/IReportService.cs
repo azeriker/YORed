@@ -6,7 +6,7 @@ namespace YORed.Domain.Interfaces
 {
     public interface IReportService
     {
-        void Create(Report report);
+        void Create(Report report, string userId);
 
         Report Get(string id);
 

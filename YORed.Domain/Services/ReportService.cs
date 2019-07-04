@@ -18,8 +18,9 @@ namespace YORed.Domain.Services
             _userService = userService;
         }
 
-        public void Create(Report report)
+        public void Create(Report report, string userId)
         {
+            report.UserId = userId;
             report.Date = DateTime.Now;
             _reportRepository.Create(report);
         }
