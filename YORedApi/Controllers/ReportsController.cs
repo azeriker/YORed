@@ -31,6 +31,7 @@ namespace YORedApi.Controllers
             _reportService.Create(report, user.Id);
         }
 
+        [HttpGet]
         public List<Report> Get()
         {
             var reports = _reportService.Get();
@@ -38,12 +39,14 @@ namespace YORedApi.Controllers
             return reports;
         }
 
+        [HttpGet]
         public Report GetById(string id)
         {
             return _reportService.Get(id);
         }
 
         [Authorize(Roles = "User")]
+        [HttpGet]
         public List<Report> GetByUser()
         {
             var user = _userService.GetByLogin(User.Identity.Name);

@@ -85,17 +85,5 @@ namespace YORedApi.Controllers
 
             return null;
         }
-
-        [Authorize]
-        public IActionResult GetLogin()
-        {
-            return Ok($"Ваш логин: {User.Identity.Name}");
-        }
-
-        [Authorize(Roles = "Admin,User,Moderator")]
-        public IActionResult GetRole()
-        {
-            return Ok($"Ваша роль: {User.Claims.ToString()}");
-        }
     }
 }
