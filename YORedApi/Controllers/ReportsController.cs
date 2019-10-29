@@ -47,7 +47,10 @@ namespace YORedApi.Controllers
         public List<Report> GetByUser()
         {
             var user = _userService.GetByLogin(User.Identity.Name);
-            return _reportService.GetByUserId(user.Id);
+
+            var reports = _reportService.GetByUserId(user.Id);
+            reports.Reverse();
+            return reports;
         }
     }
 }

@@ -39,7 +39,7 @@ namespace YORed
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            services.AddAuthentication()
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => options.AccessDeniedPath = "/Login");
 
             services.AddTransient<IUserRepository, UserRepository>();
