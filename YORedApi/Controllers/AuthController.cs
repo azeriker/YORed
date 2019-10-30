@@ -74,7 +74,7 @@ namespace YORedApi.Controllers
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.Login),
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.Id),
                     new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role.ToString())
                 };
                 ClaimsIdentity claimsIdentity =

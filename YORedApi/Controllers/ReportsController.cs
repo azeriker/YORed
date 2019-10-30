@@ -27,8 +27,7 @@ namespace YORedApi.Controllers
         [Authorize(Roles = "User")]
         public void Create([FromBody]Report report)
         {
-            var user = _userService.GetByLogin(User.Identity.Name);
-            _reportService.Create(report, user.Id);
+            _reportService.Create(report, User.Identity.Name);
         }
 
         [HttpGet]
@@ -49,9 +48,7 @@ namespace YORedApi.Controllers
         [HttpGet]
         public List<Report> GetByUser()
         {
-            var user = _userService.GetByLogin(User.Identity.Name);
-
-            var reports = _reportService.GetByUserId(user.Id);
+            var reports = _reportService.GetByUserId(User.Identity.Name);
             reports.Reverse();
             return reports;
         }
