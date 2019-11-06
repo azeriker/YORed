@@ -26,8 +26,7 @@ namespace YORed.Domain.Repositories
 
         public List<Report> Get()
         {
-            var fieldsBuilder = Builders<Report>.Projection;
-            var fields = fieldsBuilder.Exclude(d => d.Photos);
+            var fields = Builders<Report>.Projection.Exclude(d => d.Photos);
             return _collection.Find(_ => true).Project<Report>(fields).ToList();
         }
 
@@ -38,7 +37,8 @@ namespace YORed.Domain.Repositories
 
         public List<Report> GetByUserId(string id)
         {
-            return _collection.Find(i => i.UserId == id).ToList();
+            var fields = Builders<Report>.Projection.Exclude(d => d.Photos);
+            return _collection.Find(i => i.UserId == id).Project<Report>(fields).ToList();
         }
 
         public void Update(Report report)
